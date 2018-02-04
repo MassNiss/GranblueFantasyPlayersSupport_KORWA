@@ -1,6 +1,6 @@
-/* 騎空団の人数 */
-29
-/* 画面のサイズ 最小と最小から２番目に対応中*/
+/* Number Of Guild Members */
+30
+/* Display Size*/
 minimum
-/* 動作モード */
+/* Active Mode */
 MembersInfoResearch

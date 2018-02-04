@@ -51,8 +51,7 @@ public class MembersLoginTimeSearchMethod {
 		/* Time Param Setting */
 		this.TL = new TimeSleep();
 		this.Sleep_time = Conf.Wait_time;
-		
-		
+		this.Get_time = Conf.Get_time;
 
 	}
 	
