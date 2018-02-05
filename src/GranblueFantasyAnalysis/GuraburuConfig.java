@@ -46,6 +46,7 @@ public class GuraburuConfig {
 	public int MaxMemberSize = 0;
 	public String WindowSize = "";
 	public String OS_info = "";
+	public String ActiveMode = "";
 	final int NumforPage = 10;
 	final String[] OutputFilePath = new String[] {
 			"./ExtData/MembersInfo/Members1.txt",
@@ -107,6 +108,8 @@ public class GuraburuConfig {
 		WindowsizeSetting(param);
 		// Page sleep time set
 		Tl_TimeSetting();
+		// Active mode
+		ActiveModeSetup(param);
 	}
 	
 	private void Tl_TimeSetting() {
@@ -170,6 +173,11 @@ public class GuraburuConfig {
 	public void WindowsizeSetting(ConfigParameter param) {
 		String[] OthersAll = this.ConfigParamSet(param.OthersPath);
 		this.WindowSize = OthersAll[MiscConfigParam.windowsize.ordinal()];
+	}
+	
+	public void ActiveModeSetup(ConfigParameter param) {
+		String[] OthersAll = this.ConfigParamSet(param.OthersPath);
+		this.ActiveMode = OthersAll[MiscConfigParam.mode.ordinal()];
 	}
 	
 }

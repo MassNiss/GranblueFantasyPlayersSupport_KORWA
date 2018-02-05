@@ -22,10 +22,15 @@ import GranblueFantasyAnalysis.GuraburuConfig;
 
 public class Guraburu_Sample{
 	//@BeforeClass
-	public static void setup() {
-		System.setProperty("webdriver.chrome.driver", "exe/chromedriver");	
+	public static void setup() {	
 		GuraburuConfig Conf = GuraburuConfig.getInstance();
 		Conf.Config_Param_Init();
+		if(Conf.OS_info.equals("MAC")) {
+			System.setProperty("webdriver.chrome.driver", "exe/chromedriver");
+		}
+		else {
+			System.setProperty("webdriver.chrome.driver", "exe/chromedriver.exe");
+		}
 	}
 	
 	public static void main(String[] args) throws Exception{	
@@ -39,11 +44,11 @@ public class Guraburu_Sample{
 		WebDriver driver = new ChromeDriver(options);
 		driver.get("http://game.granbluefantasy.jp/#mypage");
 		Actions act = new Actions(driver);
-		int mode = 0;
+		GuraburuConfig Conf = GuraburuConfig.getInstance();
 		
 		TL.Sleep();
 		
-		if(mode == 0) {
+		if(Conf.ActiveMode.equals("MembersLoginTimeSearch")) {
 			System.out.println("Mode: MembersLoginTimeSearch");
 			MembersLoginTimeSearchMethod Method1 = new MembersLoginTimeSearchMethod(driver, act);
 			try {
@@ -54,6 +59,10 @@ public class Guraburu_Sample{
 				driver.quit();
 			}
 				
+		}
+		else if(Conf.ActiveMode.equals("ManualLogin")) {
+			TL.Sleep(30000);
+			driver.quit();
 		}
 		else {
 			System.out.println("Mode: Not Supported!");

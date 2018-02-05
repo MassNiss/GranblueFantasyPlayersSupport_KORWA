@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-9">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="/Users/mn/Desktop/eclipse_pj/GranblueFantasyCtrl/MoffumofuBrigade/lib/byte-buddy-1.7.5.jar"/>
 	<classpathentry kind="lib" path="/Users/mn/Desktop/eclipse_pj/GranblueFantasyCtrl/MoffumofuBrigade/lib/client-combined-3.6.0-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/mn/Desktop/eclipse_pj/GranblueFantasyCtrl/MoffumofuBrigade/lib/client-combined-3.6.0.jar"/>
@@ -23,5 +13,7 @@
 	<classpathentry kind="lib" path="/Users/mn/Desktop/eclipse_pj/GranblueFantasyCtrl/MoffumofuBrigade/lib/httpcore-4.4.6.jar"/>
 	<classpathentry kind="lib" path="/Users/mn/Desktop/eclipse_pj/GranblueFantasyCtrl/MoffumofuBrigade/lib/jna-4.1.0.jar"/>
 	<classpathentry kind="lib" path="/Users/mn/Desktop/eclipse_pj/GranblueFantasyCtrl/MoffumofuBrigade/lib/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
