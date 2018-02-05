@@ -1,0 +1,6 @@
+/* Number Of Guild Members */
+30
+/* Display Size*/
+middle
+/* Active Mode */
+MembersLoginTimeSearch
