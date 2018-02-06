@@ -49,7 +49,7 @@ public class BrigadeBuilder {
 	
 	public void BrigadeMembersSetup(){
 		GuraburuConfig Conf = GuraburuConfig.getInstance();
-		for(int i=0; i<BrigadeMembers.length; i++) {
+		for(int i=0; i<Conf.MaxMemberSize; i++) {
 			BrigadeMembers[i] = Conf.GuildMembers.get(i);
 		}
 		this.GuildMaxNum = Conf.MaxMemberSize;

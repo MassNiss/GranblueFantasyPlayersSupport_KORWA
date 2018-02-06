@@ -13,6 +13,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.sun.org.apache.xpath.internal.operations.Equals;
+
 import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.JavascriptExecutor;
 
@@ -36,6 +39,13 @@ public class Guraburu_Sample{
 	public static void main(String[] args) throws Exception{	
 	//@Test
 	//public void GranblueFantasySample() throws Exception{
+		if(args.length != 0) {
+			if(args[0].equals("-Config")) {
+				CUIConfigurator.ConfigurationExecute();
+				System.exit(0);
+			}
+		}
+		
 		setup();
 		ChromeOptions options = new ChromeOptions();
 		//options.addArguments("--kiosk");
@@ -61,7 +71,7 @@ public class Guraburu_Sample{
 				
 		}
 		else if(Conf.ActiveMode.equals("ManualLogin")) {
-			TL.Sleep(30000);
+			TL.Sleep(60000);
 			driver.quit();
 		}
 		else {
@@ -79,6 +89,7 @@ public class Guraburu_Sample{
 		//String test2 = No1_LoginTime.getText();
 		System.out.println(test1);
 		*/
+		System.exit(0);
 	}
 	
 }
