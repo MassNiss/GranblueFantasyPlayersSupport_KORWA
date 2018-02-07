@@ -159,6 +159,7 @@ public class GuraburuConfig {
 	public void BrigadeListUp(ConfigParameter param) {
 		String[] BrigadeAll = this.ConfigParamSet(param.GuildMembersInfoPath);
 		String BrigadeMember;
+		this.MaxMemberSize = BrigadeAll.length;
 		for(int index=0; index<BrigadeAll.length; index++) {
 			BrigadeMember = BrigadeAll[index];
 			GuildMembers.add(BrigadeMember);
@@ -167,7 +168,10 @@ public class GuraburuConfig {
 	
 	public void BrigadeMaxMemberSetup(ConfigParameter param) {
 		String[] OthersAll = this.ConfigParamSet(param.OthersPath);
-		this.MaxMemberSize = Integer.parseInt(OthersAll[MiscConfigParam.membersize.ordinal()]);
+		int MemberNum = Integer.parseInt(OthersAll[MiscConfigParam.membersize.ordinal()]);
+		if(MemberNum < this.MaxMemberSize) {
+			this.MaxMemberSize = MemberNum;
+		}
 	}
 	
 	public void WindowsizeSetting(ConfigParameter param) {

@@ -57,12 +57,12 @@ public class BrigadeBuilder {
 	
 	private MembersInfoBoxCtrl MIC;
 	FileReadWrite FRW;
-	FileReadWrite.FileWriting WR;
+	FileReadWrite.FileWriting<List<String>> WR;
 	
 	BrigadeBuilder(){
 		this.MIC = new MembersInfoBoxCtrl();
 		FRW = new FileReadWrite();
-		this.WR = FRW.new FileWriting();
+		this.WR = FRW.new FileWriting<>();
 		BrigadeMembersSetup();
 	};
 	

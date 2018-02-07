@@ -5,19 +5,12 @@ import org.junit.Test;
 import org.junit.BeforeClass;
 import java.util.*;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.sun.org.apache.xpath.internal.operations.Equals;
-
-import org.openqa.selenium.interactions.*;
-import org.openqa.selenium.JavascriptExecutor;
 
 import GranblueFantasyAnalysis.MembersLoginTimeSearchMethod;
 import GranblueFantasyAnalysis.TimeSleep;
@@ -53,16 +46,15 @@ public class Guraburu_Sample{
 		TimeSleep TL = new TimeSleep();
 		WebDriver driver = new ChromeDriver(options);
 		driver.get("http://game.granbluefantasy.jp/#mypage");
-		Actions act = new Actions(driver);
 		GuraburuConfig Conf = GuraburuConfig.getInstance();
 		
 		TL.Sleep();
 		
 		if(Conf.ActiveMode.equals("MembersLoginTimeSearch")) {
 			System.out.println("Mode: MembersLoginTimeSearch");
-			MembersLoginTimeSearchMethod Method1 = new MembersLoginTimeSearchMethod(driver, act);
+			GuraburuPlayersSupport Korwa = MembersLoginTimeSearchMethod.getInstance();
 			try {
-				Method1.MembersInfoGet();
+				Korwa.PlayersSupportMethod(driver);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
