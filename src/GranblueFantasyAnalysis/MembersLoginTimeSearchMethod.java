@@ -28,18 +28,10 @@ public class MembersLoginTimeSearchMethod extends GuraburuPlayersSupport{
 	}
 	
 	public void PlayersSupportMethod(WebDriver driver) throws Exception {
-		// Common Instance bellow
-		this.act = new Actions(driver);
-		this.WEG = new WebElementGet(driver);
-		FRW = new FileReadWrite();
-		this.RD = FRW.new FileReading();
-		this.WR = FRW.new FileWriting<String>();
+		/* common setup */
+		this.PlayersSupportMethodSetup(this, driver);
 		
-		/* Time Param Setting */
-		this.TL = new TimeSleep();
-		this.Sleep_time = Conf.Wait_time;
-		this.Get_time = Conf.Get_time;
-		
+		/* Control Method */
 		WebElement menubutton = this.WEG.GetElements_byxpath("//*[@id=\"wrapper\"]/header/div[4]");
 		if(Conf.WindowSize.equals("middle")) {
 			this.act.moveToElement(menubutton).moveByOffset(200, 10).click().build().perform();

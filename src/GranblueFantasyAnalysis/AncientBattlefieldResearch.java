@@ -24,16 +24,8 @@ public class AncientBattlefieldResearch extends GuraburuPlayersSupport{
 	}
 	
 	public void PlayersSupportMethod(WebDriver driver) throws Exception{
-		this.act = act;
-		this.WEG = new WebElementGet(driver);
-		FRW = new FileReadWrite();
-		this.RD = FRW.new FileReading();
-		this.WR = FRW.new FileWriting();
-		
-		/* Time Param Setting */
-		this.TL = new TimeSleep();
-		this.Sleep_time = Conf.Wait_time;
-		this.Get_time = Conf.Get_time;
+		/* common setup */
+		this.PlayersSupportMethodSetup(this, driver);
 	}
 	
 	

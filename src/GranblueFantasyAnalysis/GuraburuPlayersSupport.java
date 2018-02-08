@@ -3,7 +3,10 @@ package GranblueFantasyAnalysis;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
-public abstract class GuraburuPlayersSupport{
+import GranblueFantasyAnalysis.FileReadWrite.FileReading;
+import GranblueFantasyAnalysis.FileReadWrite.FileWriting;
+
+public abstract class GuraburuPlayersSupport implements IGuraburuPlayersSupport{
 	public Actions act;
 	public int Get_time = 60000;	//default
 	public int wait_time = 100;	//default
@@ -22,6 +25,20 @@ public abstract class GuraburuPlayersSupport{
 		page3
 	}
 	
-	abstract void PlayersSupportMethod(WebDriver driver) throws Exception;
+	public abstract void PlayersSupportMethod(WebDriver driver) throws Exception;
+	
+	public GuraburuPlayersSupport PlayersSupportMethodSetup(GuraburuPlayersSupport obj, WebDriver driver) {
+		obj.act = new Actions(driver);
+		obj.WEG = new WebElementGet(driver);
+		obj.FRW = new FileReadWrite();
+		obj.RD = FRW.new FileReading();
+		obj.WR = FRW.new FileWriting<String>();
+		
+		/* Time Param Setting */
+		obj.TL = new TimeSleep();
+		obj.Sleep_time = Conf.Wait_time;
+		obj.Get_time = Conf.Get_time;
+		return obj;
+	}
 
 }
