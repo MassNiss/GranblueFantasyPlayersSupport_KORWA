@@ -3,6 +3,7 @@ package GranblueFantasyAnalysis;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import GranblueFantasyAnalysis.WebElementGet;
 
 public class GuildMembersAccess {
 	final String headPath = "//*[@id=\"prt-guild-list\"]/div/div[";
@@ -14,6 +15,7 @@ public class GuildMembersAccess {
 	private WebElement NameElement;
 	private WebElement LoginElement;
 	private int diff = 0;
+	WebElementGet WG;
 
 	GuildMembersAccess(int diff){
 		this.diff = diff;
@@ -47,11 +49,12 @@ public class GuildMembersAccess {
 	}
 	
 	public void AddtoMembersList(WebDriver driver, int offset) {
+		WG = new WebElementGet(driver);
 		for(int i=offset; i<page_num+offset-this.diff; i++) {
 			NameInfo(i+1);
 			LoginInfo(i+1);
-			NameElement = driver.findElement(By.xpath(this.memberNamePath));
-			LoginElement = driver.findElement(By.xpath(this.memberLoginPath));
+			NameElement = WG.GetElements_byxpath(this.memberNamePath);
+			LoginElement = WG.GetElements_byxpath(this.memberLoginPath);
 			MembersList.MemberName[i] = NameElement.getText();
 			MembersList.MemberLogin[i] = LoginElement.getText();
 		}

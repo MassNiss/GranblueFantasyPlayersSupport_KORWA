@@ -8,22 +8,22 @@ public class RingbufferExecute {
 	
 	RingbufferExecute(int maxnum){
 		if(maxnum <= MaxSize) {
-			num = new int[maxnum];
+			this.num = new int[maxnum];
 		}
 		else {
-			num = new int[MaxSize];
+			this.num = new int[MaxSize];
 		}
 		
 	}
 	
 	public void push(int value) {
-		num[tail] = value;
-		tail = (tail + 1) % num.length;
+		this.num[tail] = value;
+		this.tail = (this.tail + 1) % this.num.length;
 	}
 	
 	public int pull() {
-		final int buf = num[head];
-		head =(head + 1) % num.length;
+		final int buf = this.num[head];
+		this.head =(this.head + 1) % this.num.length;
 		return buf;
 	}
 	

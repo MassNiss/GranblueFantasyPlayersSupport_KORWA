@@ -13,12 +13,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import GranblueFantasyAnalysis.MembersLoginTimeSearchMethod;
+import GranblueFantasyAnalysis.AncientBattlefieldResearch;
 import GranblueFantasyAnalysis.TimeSleep;
 import GranblueFantasyAnalysis.GuraburuConfig;
 
 public class Guraburu_Sample{
 	//@BeforeClass
-	public static void setup() {	
+	public static void initsetup() {	
 		GuraburuConfig Conf = GuraburuConfig.getInstance();
 		Conf.Config_Param_Init();
 		if(Conf.OS_info.equals("MAC")) {
@@ -38,10 +39,10 @@ public class Guraburu_Sample{
 				System.exit(0);
 			}
 		}
+
+		initsetup();
 		
-		setup();
 		ChromeOptions options = new ChromeOptions();
-		//options.addArguments("--kiosk");
 		options.addArguments("user-data-dir=profile");
 		TimeSleep TL = new TimeSleep();
 		WebDriver driver = new ChromeDriver(options);
@@ -50,24 +51,39 @@ public class Guraburu_Sample{
 		
 		TL.Sleep();
 		
+		// this application super Object
+		GuraburuPlayersSupport Korwa = null;
+		
 		if(Conf.ActiveMode.equals("MembersLoginTimeSearch")) {
 			System.out.println("Mode: MembersLoginTimeSearch");
-			GuraburuPlayersSupport Korwa = MembersLoginTimeSearchMethod.getInstance();
-			try {
-				Korwa.PlayersSupportMethod(driver);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				driver.quit();
-			}
+			Korwa = MembersLoginTimeSearchMethod.getInstance();
 				
 		}
+		else if(Conf.ActiveMode.equals("AncientBattleFieldResearch")) {
+			System.out.println("Mode: AncientBattleFieldResearch");
+			Korwa = AncientBattlefieldResearch.getInstance();
+		}		
 		else if(Conf.ActiveMode.equals("ManualLogin")) {
 			TL.Sleep(60000);
 			driver.quit();
+			System.exit(0);
 		}
 		else {
 			System.out.println("Mode: Not Supported!");
+			driver.quit();
+			System.exit(0);
+		}
+		
+		if(Korwa==null) {
+			System.exit(1);
+		}
+		
+		// Korwa Method Active
+		try {
+			Korwa.PlayersSupportMethod(driver);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			driver.quit();
 		}
 		

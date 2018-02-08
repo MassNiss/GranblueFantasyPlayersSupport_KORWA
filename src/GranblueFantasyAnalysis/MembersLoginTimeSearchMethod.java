@@ -16,7 +16,6 @@ import GranblueFantasyAnalysis.WebElementGet;
 import GranblueFantasyAnalysis.BrigadeBuilder;
 
 public class MembersLoginTimeSearchMethod extends GuraburuPlayersSupport{
-	// pageNo list
 	static MembersLoginTimeSearchMethod Korwa = new MembersLoginTimeSearchMethod();
 	
 	private MembersLoginTimeSearchMethod(){

@@ -18,14 +18,28 @@ import GranblueFantasyAnalysis.FileReadWrite.FileWriting;
 import GranblueFantasyAnalysis.BrigadeBuilder;
 
 public class AncientBattlefieldResearch extends GuraburuPlayersSupport{
-	// Utility set declaration
+	static AncientBattlefieldResearch Korwa = new AncientBattlefieldResearch();
 
-	AncientBattlefieldResearch(){
+	private AncientBattlefieldResearch(){
+	}
+	
+	static GuraburuPlayersSupport getInstance() {
+		return (GuraburuPlayersSupport) Korwa;
 	}
 	
 	public void PlayersSupportMethod(WebDriver driver) throws Exception{
 		/* common setup */
 		this.PlayersSupportMethodSetup(this, driver);
+		
+		/* Control Method */
+		WebElement menubutton = this.WEG.GetElements_byxpath("//*[@id=\"wrapper\"]/header/div[4]");
+		if(Conf.WindowSize.equals("middle")) {
+			this.act.moveToElement(menubutton).moveByOffset(200, 10).click().build().perform();
+		}
+		else {
+			menubutton.click();
+		}
+		TL.Sleep();
 	}
 	
 	
