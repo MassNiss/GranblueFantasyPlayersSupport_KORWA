@@ -35,7 +35,7 @@ public class FileReadWrite {
 	public class FileWriting<T1> implements IFileWriting<T1>{
 		//For File Writing
 		public void writeAll(final String path, final T1 text) throws IOException{
-			if(text instanceof Object) {
+			if(text instanceof List) {
 				Files.write(Paths.get(path), (List<String>) text, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 			}
 			else {

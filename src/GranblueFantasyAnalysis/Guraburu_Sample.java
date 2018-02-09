@@ -21,7 +21,11 @@ public class Guraburu_Sample{
 	//@BeforeClass
 	public static void initsetup() {	
 		GuraburuConfig Conf = GuraburuConfig.getInstance();
-		Conf.Config_Param_Init();
+		try{
+			Conf.Config_Param_Init();
+		}catch(Exception e){
+			System.exit(1);
+		}
 		if(Conf.OS_info.equals("MAC")) {
 			System.setProperty("webdriver.chrome.driver", "exe/chromedriver");
 		}

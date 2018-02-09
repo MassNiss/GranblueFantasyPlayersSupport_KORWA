@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html>
 <style>
+    /*
 body{
   background-image: url(KorwaImages/Title.png), url(KorwaImages/korwamizugi.jpg);
   background-repeat: no-repeat, no-repeat;
   background-position: 50% -180%, center top;
   background-color: #FFEEFF;
 }
+     */
+
+body{
+    background-image: url(KorwaImages/korwamizugi.jpg);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-color: #FFEEFF;
+}
 
 .KorwaSD{
  background: url(KorwaImages/korwasd.png);
  background-repeat: no-repeat;
  position: absolute;
- top: 30%;
- left: 85%;
+ top: 550px;
+ left: 70%;
  width: 300px;
  height: 300px;
 }
@@ -23,8 +32,8 @@ body{
  background: url(KorwaImages/Fukidashi.png);
  background-repeat: no-repeat;
  position: absolute;
- top: 20%;
- left: 70%;
+ top: 450px;
+ left: 50%;
  width: 400px;
  height: 200px;
  background-size:400px 120px;
@@ -33,40 +42,36 @@ body{
 .Reading{
  position: absolute;
  top: 70%;
- left: 70%;
+ left: 15%;
  width: 400px;
  height: 200px;
 }
 
 .canv1{
  position: absolute;
- top: 25%;
- left: 30%;
- width: 600px;
- height: 600px;
-}
-
-.canv2{
- position: absolute;
- top: 80%;
- left: 30%;
+ top: 200px;
+ left: 25%;
  width: 600px;
  height: 600px;
 }
 
 label {
-  color: white;  
-  background-color: #CCCCFF;
-  padding: 6px;
-  border-radius: 12px;
+    color: white;
+    background-color: #CCCCFF;
+    padding: 6px;
+    border-radius: 12px;
 }
-
 
 </style>
 
 <script type="text/javascript" src="./scripts/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="./scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="./scripts/jquery.popupwindow.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.js"></script></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/css/drawer.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.2.0/iscroll.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/js/drawer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <head>
 <meta charset="UTF-8">
@@ -75,6 +80,7 @@ label {
 </head>
 
 <body>
+    
 <div class="KorwaSD"></div>
 </body>
 <body>
@@ -87,9 +93,36 @@ label {
 <div class = "canv1">
 <canvas id="canv1"></canvas>
 </div>
-<div class = "canv1">
-<canvas id="canv2"></canvas>
-</div>
+
+</body>
+
+<body class="menubar drawer--left">
+    <header role="banner">
+        <button type="button" class="drawer-toggle drawer-hamburger">
+            <span class="sr-only">Menu Bar</span>
+            <span class="drawer-hamburger-icon"></span>
+        </button>
+        <nav class="drawer-nav" role="navigation">
+            <ul class="drawer-menu">
+                <li><a class="drawer-brand" href="#">Top Menu</a>
+                </li>
+                <li class="drawer-dropdown"><a class="drawer-menu-item" href="#" data-toggle="dropdown" role="button" aria-expanded="false">About <span class="drawer-caret"></span></a>
+                    <ul class="drawer-dropdown-menu">
+                        <li><a class="drawer-dropdown-menu-item" href="./html_node/About.html" id="popupwindow" rel="window400">MoffumofuBrigade</a></li>
+                    </ul>
+                </li>
+                <li><a class="drawer-menu-item" href="#">Config</a>
+                </li>
+                <li><a class="drawer-menu-item" href="#">Others</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main role="main">
+        <!-- Page content -->
+    </main>
+    
+
 </body>
 
 <script>
@@ -99,6 +132,8 @@ var LoginFreq = new Array("","","","","","","","","","","","","","","","","","",
 var LoginTime = new Array("","","","","","","","","","","","","","","","","","","","","","","","");
 var test;
 var stringMax = 24;
+var macLine = "\n";
+var windowsLine = "\r\n";
 
 $(function(){
   $(".KorwaSD").hover(function(){
@@ -144,7 +179,7 @@ function SplitArray(){
 function Load(event) {
 	var str = event.target.result;
 	console.log(str);
-	textline = str.split("\r\n");
+	textline = str.split(macLine);
 	console.log(textline);
 	SplitArray();
 	drawGraph1(LoginName[0], LoginFreq, LoginTime);
@@ -182,6 +217,27 @@ var myChart = new Chart(ctx, {
     }
 });
 }
+
+$(document).ready(function() {
+    $('.menubar').drawer();
+});
+
+var profiles =
+{
+    window400:
+    {
+        height:400,
+        width:400,
+        center:1,
+        resizable:0,
+        createnew:1
+    },
+};
+
+$(function(){
+  $("#popupwindow").popupwindow(profiles);
+});
+
 </script>
 
 <article>
@@ -191,7 +247,9 @@ var myChart = new Chart(ctx, {
 <input type="file" id="file_photo" onchange="dochange(event);" style="display:none;">
 </label>
 </div>
+
 </ariticle>
+
 
 
 </html>

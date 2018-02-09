@@ -5,7 +5,7 @@ import java.util.List;
 
 import GranblueFantasyAnalysis.FileReadWrite.*;
 
-public class GuraburuConfig {
+public class GuraburuConfig extends LogMessage{
 	private static GuraburuConfig ConfInstance = new GuraburuConfig();
 	
 	private GuraburuConfig() {
@@ -85,17 +85,25 @@ public class GuraburuConfig {
 	
 	FileReadWrite FRW = new FileReadWrite();
 	FileReadWrite.FileReading RD = FRW.new FileReading();
+	FileReadWrite.FileWriting<String> WR = FRW.new FileWriting<>();
 	
 	private class ConfigParameter{
+		final String LogPath = "./ExtData/Log.txt";
 		final String OS_typepath = "./ExtData/OSInfo.txt";
-		final String TimeManagementConfigPath = new String("./ExtData/Timeconfig.txt");
-		final String GuildMembersInfoPath = new String("./ExtData/GuildMembers.txt");
-		final String OthersPath = new String("./ExtData/Misc.txt");
+		final String TimeManagementConfigPath = "./ExtData/Timeconfig.txt";
+		final String GuildMembersInfoPath = "./ExtData/GuildMembers.txt";
+		final String OthersPath = "./ExtData/Misc.txt";
 		final int WindowModeNum = 4;
 	}
 	
-	public void Config_Param_Init() {
+	public void Config_Param_Init() throws Exception{
 		ConfigParameter param = new ConfigParameter();
+		// LogPath Confirmation
+		try {
+			RD.RetLine(param.LogPath);
+		}catch(Exception e){
+			throw e;
+		}
 		// OS type set
 		OS_Setting(param);
 		// Time parameter set
