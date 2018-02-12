@@ -39,6 +39,19 @@ public class GuraburuConfig extends LogMessage{
 		"maximum",
 	};
 	
+	enum AllConfigparam{
+		modeTitle,
+		mode,
+		membersnumberTitele,
+		membersnumber,
+		gettimeTitle,
+		gettime,
+		waittimeTitle,
+		waittime,
+		windowsizeTitle,
+		windowsize
+	}
+	
 	// Config Parameter Members
 	public int TL_Time = 0;
 	public int Get_time = 0;
@@ -93,6 +106,7 @@ public class GuraburuConfig extends LogMessage{
 		final String TimeManagementConfigPath = "./ExtData/Timeconfig.txt";
 		final String GuildMembersInfoPath = "./ExtData/GuildMembers.txt";
 		final String OthersPath = "./ExtData/Misc.txt";
+		final String ConfigPath = "./ExtData/Config.txt";
 		final int WindowModeNum = 4;
 	}
 	
@@ -105,11 +119,9 @@ public class GuraburuConfig extends LogMessage{
 			throw e;
 		}
 		// OS type set
-		OS_Setting(param);
+		this.OS_info = "MAC";
 		// Time parameter set
 		TimeConfigParamSet(param);
-		// Brigade members set
-		BrigadeListUp(param);
 		// Brigade members max set
 		BrigadeMaxMemberSetup(param);
 		// Window size set
@@ -143,14 +155,14 @@ public class GuraburuConfig extends LogMessage{
 	}
 	
 	public void TimeConfigParamSet(ConfigParameter param) {
-		String[] TCP = this.ConfigParamSet(param.TimeManagementConfigPath);
+		String[] TCP = this.ConfigParamSet(param.ConfigPath);
 		final int Get_Time_upper = 6000000;
 		final int Get_Time_bottom = 60000;
 		final int Wait_Time_upper = 100000;
 		final int Wait_Time_bottom = 100;
 		int gettime, waittime;
-		gettime = Integer.parseInt(TCP[TimeManagementConfigParam.gettime.ordinal()]);
-		waittime = Integer.parseInt(TCP[TimeManagementConfigParam.waittime.ordinal()]);
+		gettime = Integer.parseInt(TCP[AllConfigparam.gettime.ordinal()]);
+		waittime = Integer.parseInt(TCP[AllConfigparam.waittime.ordinal()]);
 		
 		if(gettime > Get_Time_upper) {this.Get_time = Get_Time_upper;}
 		else if(gettime < Get_Time_bottom) {this.Get_time = Get_Time_bottom;}
@@ -158,8 +170,8 @@ public class GuraburuConfig extends LogMessage{
 		else if(waittime < Wait_Time_bottom) {this.Wait_time = Wait_Time_bottom;}
 		
 		else{
-			this.Get_time = Integer.parseInt(TCP[TimeManagementConfigParam.gettime.ordinal()]);
-			this.Wait_time = Integer.parseInt(TCP[TimeManagementConfigParam.waittime.ordinal()]);	
+			this.Get_time = Integer.parseInt(TCP[AllConfigparam.gettime.ordinal()]);
+			this.Wait_time = Integer.parseInt(TCP[AllConfigparam.waittime.ordinal()]);	
 		}
 		
 	}
@@ -175,21 +187,19 @@ public class GuraburuConfig extends LogMessage{
 	}
 	
 	public void BrigadeMaxMemberSetup(ConfigParameter param) {
-		String[] OthersAll = this.ConfigParamSet(param.OthersPath);
-		int MemberNum = Integer.parseInt(OthersAll[MiscConfigParam.membersize.ordinal()]);
-		if(MemberNum < this.MaxMemberSize) {
-			this.MaxMemberSize = MemberNum;
-		}
+		String[] OthersAll = this.ConfigParamSet(param.ConfigPath);
+		int MemberNum = Integer.parseInt(OthersAll[AllConfigparam.membersnumber.ordinal()]);
+		this.MaxMemberSize = MemberNum;
 	}
 	
 	public void WindowsizeSetting(ConfigParameter param) {
-		String[] OthersAll = this.ConfigParamSet(param.OthersPath);
-		this.WindowSize = OthersAll[MiscConfigParam.windowsize.ordinal()];
+		String[] OthersAll = this.ConfigParamSet(param.ConfigPath);
+		this.WindowSize = OthersAll[AllConfigparam.windowsize.ordinal()];
 	}
 	
 	public void ActiveModeSetup(ConfigParameter param) {
-		String[] OthersAll = this.ConfigParamSet(param.OthersPath);
-		this.ActiveMode = OthersAll[MiscConfigParam.mode.ordinal()];
+		String[] OthersAll = this.ConfigParamSet(param.ConfigPath);
+		this.ActiveMode = OthersAll[AllConfigparam.mode.ordinal()];
 	}
 	
 }

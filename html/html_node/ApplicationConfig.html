@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head><title>Brifade Infomation</title></head>
+<body>
+<h2>GuraburuPlayersSupport's simple configuration</h2>
+
+<script type="text/javascript" src="../scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="../scripts/jquery.popupwindow.js"></script>
+
+<form>
+<p>
+    <label for="MODE">MODE:</label><br />
+    <input type="radio" id="BrigadeMembersResearch" name="MODE" value="MembersLoginTimeSearch" />
+    <label for="MembersInfo">MembersLoginTimeSearch</label>
+    <input type="radio" id="AncientBattleField" name="MODE" value="AncientBattleFieldResearch" />
+    <label for="BattleInfo">AncientBattleFieldResearch</label>
+    <input type="radio" id="ManualLogin" name="MODE" value="ManualLogin" />
+    <label for="ManualLogin">ManualLogin</label>
+</p>
+
+<p>
+<label for="Brigade">Members Number:</label><br />
+    <select id="num" name="memnum">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+    </select>
+</p>
+
+<p>
+<label for="Aquiring_period">Data Acquiring Period:</label><br />
+    <select id="period" name="period">
+        <option value="60000">1minute</option>
+        <option value="300000">5minutes</option>
+        <option value="600000">10minutes</option>
+        <option value="900000">15minutes</option>
+        <option value="1800000">30minutes</option>
+        <option value="3600000">60minutes</option>
+    </select>
+</p>
+
+<p>
+<label for="wait_period">Control Wait Period:</label><br />
+<select id="wait" name="wait">
+    <option value="1000">1000msec</option>
+    <option value="2000">2000msec</option>
+    <option value="3000">3000msec</option>
+    <option value="5000">5000msec</option>
+</select>
+</p>
+
+<p>
+<label for="windowsize">Windows Size:</label><br />
+<select id="windowsize" name="windowsize">
+    <option value="minimum">minimum</option>
+</select>
+</p>
+
+
+<button type="button" id="btn">Set!</button>
+<a id="download" href="#" download="Config.txt"><button type="button" id="btn2" disabled>download</button></a>
+    
+</form>
+<script>
+window.onload = function(){
+    $('[name="MODE"]').val(["ManualLogin"]);
+}
+var membersname = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
+    
+// value get area
+
+function outputText(mode, num, period, wait, windowsize){
+    var contents = "/* MODE */"+"\r"+mode+"\r"+"/* Members Number */"+"\r"+num+"\r"+"/* Data Acquiring period */"+"\r"+period+"\r"+"/* Contorol Wait Period */"+"\r"+wait+"\r"+"/* Window Size */"+"\r"+windowsize;
+    console.log(contents);
+    var blob = new Blob([contents], {"type":"text/plain"});
+    document.getElementById("download").href = window.URL.createObjectURL(blob);
+    $("#btn2").prop("disabled", false);
+}
+
+$(function(){
+    $("#btn").click(function(){
+        // using mode
+        var mode = $('[name="MODE"]:checked').val();
+        console.log(mode);
+        var memnum = $("#num").val();
+        console.log(memnum);
+        var getperiod = $("#period").val();
+        console.log(getperiod);
+        var wait = $("#wait").val();
+        console.log(wait);
+        var windowsize = $("#windowsize").val();
+        console.log(windowsize);
+        outputText(mode, memnum, getperiod, wait, windowsize);
+    })
+});
+      
+</script>
+</body>
+</html>

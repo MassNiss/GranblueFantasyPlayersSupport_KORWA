@@ -108,10 +108,13 @@ label {
                 </li>
                 <li class="drawer-dropdown"><a class="drawer-menu-item" href="#" data-toggle="dropdown" role="button" aria-expanded="false">About <span class="drawer-caret"></span></a>
                     <ul class="drawer-dropdown-menu">
-                        <li><a class="drawer-dropdown-menu-item" href="./html_node/About.html" id="popupwindow" rel="window400">MoffumofuBrigade</a></li>
+                        <li><a class="drawer-dropdown-menu-item" href="./html_node/Brigade.html" id="popupwindow" rel="window400">MoffumofuBrigade</a></li>
                     </ul>
                 </li>
-                <li><a class="drawer-menu-item" href="#">Config</a>
+                <li class="drawer-dropdown"><a class="drawer-menu-item" href="#" data-toggle="dropdown" role="button" aria-expanded="false">Config <span class="drawer-caret"></span></a>
+                    <ul class="drawer-dropdown-menu">
+                        <li><a class="drawer-dropdown-menu-item" href="./html_node/ApplicationConfig.html" id="popupwindow" rel="window400">Setup Parameters</a></li>
+                    </ul>
                 </li>
                 <li><a class="drawer-menu-item" href="#">Others</a>
                 </li>
@@ -194,8 +197,8 @@ function Err(event) {
 }
 
 function drawGraph1(LoginName, LoginFreq, LoginTime){
-var ctx = document.getElementById("canv1").getContext("2d");
-var myChart = new Chart(ctx, {
+    var ctx = document.getElementById("canv1").getContext("2d");
+    var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: [LoginTime[0], LoginTime[1], LoginTime[2], LoginTime[3], LoginTime[4], LoginTime[5], LoginTime[6], LoginTime[7], LoginTime[8], LoginTime[9], LoginTime[10], LoginTime[11], LoginTime[12], LoginTime[13], LoginTime[14], LoginTime[15], LoginTime[16], LoginTime[17], LoginTime[18], LoginTime[19], LoginTime[20], LoginTime[21], LoginTime[22], LoginTime[23]],

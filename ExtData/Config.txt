@@ -1,0 +1,1 @@
+/* MODE */MembersLoginTimeSearch/* Members Number */29/* Data Acquiring period */60000/* Contorol Wait Period */1000/* Window Size */minimum

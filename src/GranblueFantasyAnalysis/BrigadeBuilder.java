@@ -14,44 +14,8 @@ import GranblueFantasyAnalysis.GuraburuConfig;
 public class BrigadeBuilder {
 	private int GuildMaxNum;
 	
-	private String[] BrigadeMembers = new String[]{
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none",
-		"none"
-	};
-	
 	public void BrigadeMembersSetup(){
 		GuraburuConfig Conf = GuraburuConfig.getInstance();
-		for(int i=0; i<Conf.MaxMemberSize; i++) {
-			BrigadeMembers[i] = Conf.GuildMembers.get(i);
-		}
 		this.GuildMaxNum = Conf.MaxMemberSize;
 	}
 	
@@ -75,8 +39,8 @@ public class BrigadeBuilder {
 		GuildMembersAccess GMA = new GuildMembersAccess(diff);
 		GMA.AddtoMembersList(driver, 0);
 		for(int i=0; i<GMA.page_num-diff; i++) {
-			String loginname = BrigadeMembers[i+offset];
-			String loginfreq = GMA.LoginTimeInform(BrigadeMembers[i+offset]);
+			String loginname = GMA.LoginNameInform(i);
+			String loginfreq = GMA.LoginTimeInform(loginname);
 			String currenttime = calendar.getTime().toString();
 			MIC.MembersListEdit(loginname, loginfreq, currenttime);
 		}

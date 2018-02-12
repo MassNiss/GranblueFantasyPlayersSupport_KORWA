@@ -36,8 +36,6 @@ public class GuildMembersAccess {
 		}
 	}
 	
-
-	
 	private String NameInfo(int number){
 		this.memberNamePath = headPath + number + NameTailPath;
 		return this.memberNamePath;
@@ -75,6 +73,10 @@ public class GuildMembersAccess {
 		}
 
 		return value;
+	}
+	
+	public String LoginNameInform(int number) {
+		return MembersList.MemberName[number];
 	}
 
 }
