@@ -1,4 +1,0 @@
-*Get_time[ms]*
-1800000
-*Wait_time[ms]
-3000
