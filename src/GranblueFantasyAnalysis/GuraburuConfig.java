@@ -40,6 +40,8 @@ public class GuraburuConfig extends LogMessage{
 	};
 	
 	enum AllConfigparam{
+		osTitle,
+		os,
 		modeTitle,
 		mode,
 		membersnumberTitele,
@@ -51,6 +53,7 @@ public class GuraburuConfig extends LogMessage{
 		windowsizeTitle,
 		windowsize
 	}
+	
 	
 	// Config Parameter Members
 	public int TL_Time = 0;
@@ -119,7 +122,7 @@ public class GuraburuConfig extends LogMessage{
 			throw e;
 		}
 		// OS type set
-		this.OS_info = "MAC";
+		OS_Setting(param);
 		// Time parameter set
 		TimeConfigParamSet(param);
 		// Brigade members max set
@@ -137,7 +140,11 @@ public class GuraburuConfig extends LogMessage{
 	}
 	
 	private void OS_Setting(ConfigParameter param) {
-		this.OS_info = this.RD.RetLine(param.OS_typepath);
+		String ConfParam;
+		String[] ConfParamArray;
+		ConfParam = this.RD.RetLine(param.ConfigPath);
+		ConfParamArray = ConfParam.split("\n", -1);
+		this.OS_info = ConfParamArray[AllConfigparam.os.ordinal()];
 	}
 	
 	// Utility method

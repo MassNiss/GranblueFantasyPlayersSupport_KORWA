@@ -10,6 +10,13 @@
 <script type="text/javascript" src="../scripts/jquery.popupwindow.js"></script>
 
 <form>
+    <p>
+    <label for="OS">OS:</label><br />
+    <input type="radio" id="MAC" name="OS" value="MAC" />
+    <label for="MAC">MAC</label>
+    <input type="radio" id="WINDOWS" name="OS" value="WINDOWS" />
+    <label for="WINDOWS">WINDOWS</label>
+    </p>
 <p>
     <label for="MODE">MODE:</label><br />
     <input type="radio" id="BrigadeMembersResearch" name="MODE" value="MembersLoginTimeSearch" />
@@ -93,13 +100,14 @@
 <script>
 window.onload = function(){
     $('[name="MODE"]').val(["ManualLogin"]);
+    $('[name="OS"]').val(["MAC"]);
 }
 var membersname = ["","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""];
     
 // value get area
 
-function outputText(mode, num, period, wait, windowsize){
-    var contents = "/* MODE */"+"\r"+mode+"\r"+"/* Members Number */"+"\r"+num+"\r"+"/* Data Acquiring period */"+"\r"+period+"\r"+"/* Contorol Wait Period */"+"\r"+wait+"\r"+"/* Window Size */"+"\r"+windowsize;
+function outputText(os, mode, num, period, wait, windowsize){
+    var contents = "/* OS */"+"\r"+os+"\r"+"/* MODE */"+"\r"+mode+"\r"+"/* Members Number */"+"\r"+num+"\r"+"/* Data Acquiring period */"+"\r"+period+"\r"+"/* Contorol Wait Period */"+"\r"+wait+"\r"+"/* Window Size */"+"\r"+windowsize;
     console.log(contents);
     var blob = new Blob([contents], {"type":"text/plain"});
     document.getElementById("download").href = window.URL.createObjectURL(blob);
@@ -109,6 +117,8 @@ function outputText(mode, num, period, wait, windowsize){
 $(function(){
     $("#btn").click(function(){
         // using mode
+        var os = $('[name="OS"]:checked').val();
+        console.log(os);
         var mode = $('[name="MODE"]:checked').val();
         console.log(mode);
         var memnum = $("#num").val();
@@ -119,7 +129,7 @@ $(function(){
         console.log(wait);
         var windowsize = $("#windowsize").val();
         console.log(windowsize);
-        outputText(mode, memnum, getperiod, wait, windowsize);
+        outputText(os, mode, memnum, getperiod, wait, windowsize);
     })
 });
       
