@@ -1,58 +1,54 @@
 package GranblueFantasyAnalysis;
 
-import org.openqa.selenium.WebElement;
 import GranblueFantasyAnalysis.AncientBattleFieldInfomationAccess;
 import GranblueFantasyAnalysis.RingbufferExecute;
 
+import java.util.List;
+
+import org.openqa.selenium.WebDriver;
+
 public class AncientBattleFieldAnalysis {
 	final String headPath = "//*[@id=\"prt-guild-list\"]/div/div[";
-	private WebElement MyContribution;
-	private WebElement MyBrigadeContribution;
-	private WebElement OpponentContribution;
 	private AncientBattleFieldInfomationAccess ABFIA;
 	private int[] TenTimesBox = new int[10];
-	private int getInterval = 20; //interval 20 minutes default
+	private int cnt = 0;
+	private int tenaverage = 0;
+	private String TenAverageStr = "";
 	
-	private int MyCont;
-	private int MyBriCont;
-	private int OppCont;
-	private int Diff;
-	private int MostRecent;
-	private int TenTimesRecent;
 	private RingbufferExecute RingBuf;
+	FileReadWrite FRW;
+	FileReadWrite.FileWriting<List<String>> WR;
 	
-	AncientBattleFieldAnalysis(){
-		this.Init();
+	AncientBattleFieldAnalysis(WebDriver driver){
 		this.RingBuf = new RingbufferExecute(this.TenTimesBox.length);
-	}
-	
-	private void Init() {
-		for(int i=0; i<10; i++) {
-			this.TenTimesBox[i] = 0;
-		}
+		this.ABFIA = new AncientBattleFieldInfomationAccess(driver);
 	}
 	
 	private boolean TenTimesRecentMethod() {
-		boolean done = false;
-		this.RingBuf.push(this.MostRecent);
-		
-		return done;
+		boolean cntup = false;
+		this.RingBuf.push(Integer.parseInt(ABFIA.mybricont));
+		if(this.cnt < this.TenTimesBox.length) {
+			this.tenaverage = this.RingBuf.aveCalcRet(++this.cnt);
+		}
+		else {
+			cntup = true;
+			this.tenaverage = this.RingBuf.aveCalcRet(this.TenTimesBox.length);
+		}
+		return cntup;
 	}
 	
-	// string parser
-	private int ABFStrParser(String strdata) {
-		return Integer.parseInt(strdata);
+	public void BattleInfoCollect(String value) {
+		this.ABFIA.ContributionValueSet(value);
 	}
 	
-	private void InfomationSetup() {
-		
+	public void InfomationAnalysis() {
+		this.TenTimesRecentMethod();
+		this.TenAverageStr = String.valueOf(this.tenaverage);
 	}
 	
-	public void BattleFieldInfomationInform() {
-		
+	public void PageAncientBattleFieldInfoExport(WebDriver driver, String NowTime) {
+		GuraburuConfig Conf = GuraburuConfig.getInstance();
+		this.WR.WriteLine(Conf.BattleInfoPath, this.ABFIA.ContributionDegreeRead(this.TenAverageStr, NowTime));
 	}
-	
-	
-	
 	
 }

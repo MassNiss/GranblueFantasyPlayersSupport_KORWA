@@ -96,6 +96,7 @@ public class GuraburuConfig extends LogMessage{
 			"./ExtData/MembersInfo/Members29.txt",
 			"./ExtData/MembersInfo/Members30.txt"
 	};
+	final String BattleInfoPath = "/ExtData/AncientBattleFieldInfo/BattleInfo.txt";
 	
 	public List<String> GuildMembers = new ArrayList<>();
 	

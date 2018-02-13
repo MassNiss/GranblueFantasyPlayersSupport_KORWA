@@ -8,17 +8,13 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.interactions.*;
+import GranblueFantasyAnalysis.AncientBattleFieldAnalysis;
 
-import GranblueFantasyAnalysis.TimeSleep;
-import GranblueFantasyAnalysis.WebElementGet;
-import GranblueFantasyAnalysis.FileReadWrite.FileReading;
-import GranblueFantasyAnalysis.FileReadWrite.FileWriting;
-import GranblueFantasyAnalysis.BrigadeBuilder;
 
 public class AncientBattlefieldResearch extends GuraburuPlayersSupport{
 	static AncientBattlefieldResearch Korwa = new AncientBattlefieldResearch();
+	private int interval = 120000;
+	
 
 	private AncientBattlefieldResearch(){
 	}
@@ -40,6 +36,20 @@ public class AncientBattlefieldResearch extends GuraburuPlayersSupport{
 			menubutton.click();
 		}
 		TL.Sleep();
+		
+		// loop method
+		while(true) {
+			AncientBattleFieldAnalysis ABFA = new AncientBattleFieldAnalysis(driver);
+			Calendar calendar = Calendar.getInstance();
+			int sleep_cnt = 0;
+			
+			ABFA.InfomationAnalysis();
+			ABFA.PageAncientBattleFieldInfoExport(driver, calendar.getTime().toString());
+			
+			TL.Sleep(this.interval-sleep_cnt*this.Sleep_time);
+			
+		}
+		
 	}
 	
 	

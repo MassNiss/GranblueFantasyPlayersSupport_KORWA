@@ -20,5 +20,10 @@ public class WebElementGet{
 		return this.Element;
 	}
 	// id method
+	WebElement GetElements_byid(String id) {
+		IElementGet<String> idget = (Id) -> {return this.Driver.findElement(By.id(id));};
+		this.Element = idget.ElementGet(id);
+		return this.Element;
+	}
 	
 }
