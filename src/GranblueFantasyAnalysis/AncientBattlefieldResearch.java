@@ -13,7 +13,7 @@ import GranblueFantasyAnalysis.AncientBattleFieldAnalysis;
 
 public class AncientBattlefieldResearch extends GuraburuPlayersSupport{
 	static AncientBattlefieldResearch Korwa = new AncientBattlefieldResearch();
-	private int interval = 120000;
+	private int interval;
 	private String UFNum;
 	
 
@@ -28,6 +28,7 @@ public class AncientBattlefieldResearch extends GuraburuPlayersSupport{
 		/* common setup */
 		this.PlayersSupportMethodSetup(this, driver);
 		this.UFNum = Conf.ufnum;
+		this.interval = Conf.Get_time;
 		boolean firstget = true;
 		
 		/* Control Method */
