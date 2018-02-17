@@ -55,12 +55,54 @@ body{
  height: 600px;
 }
 
+.checkBox{
+    position: absolute;
+    top: 65%;
+    left: 15%;
+    width: 450px;
+    height: 200px;
+}
+
+.checkBox input {
+    display: none;
+}
+.checkBox label{
+    display: block;
+    float: left;
+    cursor: pointer;
+    width: 200px;
+    margin: 0;
+    padding: 10px;
+    background: #bdc3c7;
+    color: #869198;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1;
+    transition: .2s;
+}
+.checkBox label:first-of-type{
+    border-radius: 3px 0 0 3px;
+}
+.checkBox label:last-of-type{
+    border-radius: 0 3px 3px 0;
+}
+.checkBox input[type="radio"]:checked + .MLTMode {
+    background-color: #a1b91d;
+    color: #fff;
+}
+.checkBox input[type="radio"]:checked + .UAFMode {
+    background-color: #e67168;
+    color: #fff;
+}
+
 label {
     color: white;
     background-color: #CCCCFF;
     padding: 6px;
     border-radius: 12px;
 }
+
+
 
 </style>
 
@@ -125,6 +167,13 @@ label {
         <!-- Page content -->
     </main>
     
+    <div class="checkBox">
+        <input type="radio" name="mode" id="MLTMode" value="MLTMode" checked="">
+        <label for="MLTMode" class="MLTMode">MembersLoginTimeMode</label>
+        <input type="radio" name="mode" id="UAFMode" value="UAFMode">
+        <label for="UAFMode" class="UAFMode">UniteAndFightMode</label>
+    </div>
+    
 
 </body>
 
@@ -133,21 +182,34 @@ var testline = "";
 var LoginName = new Array("","","","","","","","","","","","","","","","","","","","","","","","");
 var LoginFreq = new Array("","","","","","","","","","","","","","","","","","","","","","","","");
 var LoginTime = new Array("","","","","","","","","","","","","","","","","","","","","","","","");
+var MyBriCont = new Array("","","","","","","","","","","","","","","","","","","","","","","","");
+var OppBriCont = new Array("","","","","","","","","","","","","","","","","","","","","","","","");
+var MyBriContSpd = new Array("","","","","","","","","","","","","","","","","","","","","","","","");
+var OppBriContSpd = new Array("","","","","","","","","","","","","","","","","","","","","","","","");
 var test;
 var stringMax = 24;
 var macLine = "\n";
 var windowsLine = "\r\n";
 
+var mode1 = "MLTMode";
+var mode2 = "UAFMode";
+
+
 $(function(){
   $(".KorwaSD").hover(function(){
       $(".KorwaFukidashi").fadeIn();
-      voice = new Array("　どんな物語が見られるかしら。楽しみね！", "　現実に、ハッピーエンド以外は不要なの！", "　インスピレーションが湧いてきたわ", "　華やかに彩るわ！ブランシェ・フィル！", "　んふふ…面白い物語が見られそう！");
+      voice = new Array("　どんな物語が見られるかしら。楽しみね！", "　解析したいデータの種類を選ぶのよ！");
       var FukidashiHyouji = voice[Math.floor(Math.random() * voice.length)];
       $(".voiceEffect").html(FukidashiHyouji);
   },function(){
       $(".KorwaFukidashi").fadeOut();
   });
 });
+
+function modecheck(){
+  mode = $('[name="mode"]:checked').val();
+}
+
 
 function dochange(event) {
 	document.clear();
@@ -159,13 +221,13 @@ function dochange(event) {
 
 function readfile(file) {
 	var reader = new FileReader();
-	reader.addEventListener("load", Load);
+    reader.addEventListener("load", Load);
 	reader.addEventListener("error", Err);
 
 	reader.readAsText(file,"utf-8");
 }
 
-function SplitArray(){
+function MLTSplitArray(){
 	if(stringMax > ((textline.length-1)/3)){
 		stringMax = ((textline.length-1)/3);
 	}
@@ -179,13 +241,37 @@ function SplitArray(){
 	}
 }
 
+function UAFSplitArray(){
+    if(stringMax > ((textline.length-1)/6)){
+        stringMax = ((textline.length-1)/6);
+    }
+    for(var i=0; i<stringMax; i++){
+        MyBriCont[i] = textline[6*i+1];
+        OppBriCont[i] = textline[6*i+2];
+        MyBriContSpd[i] = textline[6*i+3];
+        OppBriContSpd[i] = textline[6*i+4];
+        LoginTime[i] = textline[6*i+5];
+        var idx = LoginTime[i].search(":");
+        LoginTime[i] = LoginTime[i].substring(idx-2,idx+6);
+    }
+}
+
 function Load(event) {
 	var str = event.target.result;
 	console.log(str);
 	textline = str.split(macLine);
 	console.log(textline);
-	SplitArray();
-	drawGraph1(LoginName[0], LoginFreq, LoginTime);
+    modecheck();
+	
+    if(mode == mode1){
+        MLTSplitArray();
+        drawGraph1(LoginName[0], LoginFreq, LoginTime);
+    }
+    else if(mode == mode2){
+        UAFSplitArray()
+        drawGraph2(MyBriCont, OppBriCont, MyBriContSpd, OppBriContSpd, LoginTime);
+    }
+	
 }
 
 function Err(event) {
@@ -221,6 +307,40 @@ function drawGraph1(LoginName, LoginFreq, LoginTime){
 });
 }
 
+function drawGraph2(MyBriCont, LoginTime){
+    var ctx = document.getElementById("canv1").getContext("2d");
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [LoginTime[0], LoginTime[1], LoginTime[2], LoginTime[3], LoginTime[4], LoginTime[5], LoginTime[6], LoginTime[7], LoginTime[8], LoginTime[9], LoginTime[10], LoginTime[11], LoginTime[12], LoginTime[13], LoginTime[14], LoginTime[15], LoginTime[16], LoginTime[17], LoginTime[18], LoginTime[19], LoginTime[20], LoginTime[21], LoginTime[22], LoginTime[23]],
+        datasets: [
+            {
+            label: "MyBrigadeContribution",
+            data: [MyBriCont[0], MyBriCont[1], MyBriCont[2], MyBriCont[3], MyBriCont[4], MyBriCont[5], MyBriCont[6], MyBriCont[7], MyBriCont[8], MyBriCont[9], MyBriCont[10], MyBriCont[11], MyBriCont[12], MyBriCont[13], MyBriCont[14], MyBriCont[15], MyBriCont[16], MyBriCont[17], MyBriCont[18], MyBriCont[19], MyBriCont[20], MyBriCont[21], MyBriCont[22], MyBriCont[23]],
+            backgroundColor:  'rgba(255, 99, 132, 0.2)',
+            borderWidth: 1
+            },
+            {
+            label: "OpponentBrigadeContribution",
+            data: [OppBriCont[0], OppBriCont[1], OppBriCont[2], OppBriCont[3], OppBriCont[4], OppBriCont[5], OppBriCont[6], OppBriCont[7], OppBriCont[8], OppBriCont[9], OppBriCont[10], OppBriCont[11], OppBriCont[12], OppBriCont[13], OppBriCont[14], OppBriCont[15], OppBriCont[16], OppBriCont[17], OppBriCont[18], OppBriCont[19], OppBriCont[20], OppBriCont[21], OppBriCont[22], OppBriCont[23]],
+            backgroundColor:  'rgba(255, 140, 120, 0.2)',
+            borderWidth: 1
+            }
+        ]
+    },
+    options:{
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+}
+
+
 $(document).ready(function() {
     $('.menubar').drawer();
 });
@@ -245,7 +365,7 @@ $(function(){
 
 <article>
 <div class="Reading">
-<p> Member's Infomation Text </p>
+<p> Analysis Data Input </p>
 <label for="file_photo"> Input File
 <input type="file" id="file_photo" onchange="dochange(event);" style="display:none;">
 </label>
