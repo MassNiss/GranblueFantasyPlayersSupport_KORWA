@@ -1,1 +1,1 @@
-/* OS */MAC/* MODE */MembersLoginTimeSearch/* Members Number */29/* Data Acquiring period */60000/* Contorol Wait Period */3000/* Window Size */minimum
+/* OS */MAC/* MODE */AncientBattleFieldResearch/* Members Number */1/* Data Acquiring period */60000/* Control Wait Period */3000/* Window Size */minimum/* Unite And Fight Number */36

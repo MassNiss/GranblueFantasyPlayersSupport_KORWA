@@ -25,6 +25,8 @@
     <label for="BattleInfo">AncientBattleFieldResearch</label>
     <input type="radio" id="ManualLogin" name="MODE" value="ManualLogin" />
     <label for="ManualLogin">ManualLogin</label>
+    <input type="radio" id="UAFBookMaker" name="MODE" value="UAFBookMaker" />
+    <label for="UAFBookMaker">UAFBookMaker</label>
 </p>
 
 <p>
@@ -92,6 +94,37 @@
 </select>
 </p>
 
+<p>
+<label for="UFNum">UnitAndFight Number:</label><br />
+<select id="UFNum" name="UFNum">
+    <option value="36">36</option>
+    <option value="37">37</option>
+    <option value="38">38</option>
+    <option value="39">39</option>
+    <option value="40">40</option>
+    <option value="41">41</option>
+    <option value="42">42</option>
+    <option value="43">43</option>
+    <option value="44">44</option>
+    <option value="45">45</option>
+    <option value="46">46</option>
+    <option value="47">47</option>
+    <option value="48">48</option>
+    <option value="49">49</option>
+    <option value="50">50</option>
+    <option value="51">51</option>
+    <option value="52">52</option>
+    <option value="53">53</option>
+    <option value="54">54</option>
+    <option value="55">55</option>
+    <option value="56">56</option>
+    <option value="57">57</option>
+    <option value="58">58</option>
+    <option value="59">59</option>
+    <option value="60">60</option>
+</select>
+</p>
+
 
 <button type="button" id="btn">Set!</button>
 <a id="download" href="#" download="Config.txt"><button type="button" id="btn2" disabled>download</button></a>
@@ -106,8 +139,8 @@ var membersname = ["","","","","","","","","","","","","","","","","","","","","
     
 // value get area
 
-function outputText(os, mode, num, period, wait, windowsize){
-    var contents = "/* OS */"+"\r"+os+"\r"+"/* MODE */"+"\r"+mode+"\r"+"/* Members Number */"+"\r"+num+"\r"+"/* Data Acquiring period */"+"\r"+period+"\r"+"/* Contorol Wait Period */"+"\r"+wait+"\r"+"/* Window Size */"+"\r"+windowsize;
+function outputText(os, mode, num, period, wait, windowsize, ufnum){
+    var contents = "/* OS */"+"\r"+os+"\r"+"/* MODE */"+"\r"+mode+"\r"+"/* Members Number */"+"\r"+num+"\r"+"/* Data Acquiring period */"+"\r"+period+"\r"+"/* Contorol Wait Period */"+"\r"+wait+"\r"+"/* Window Size */"+"\r"+windowsize+"\r"+"/* Unite And Fight Number */"+"\r"+ufnum;
     console.log(contents);
     var blob = new Blob([contents], {"type":"text/plain"});
     document.getElementById("download").href = window.URL.createObjectURL(blob);
@@ -129,7 +162,9 @@ $(function(){
         console.log(wait);
         var windowsize = $("#windowsize").val();
         console.log(windowsize);
-        outputText(os, mode, memnum, getperiod, wait, windowsize);
+        var ufnum = $("#UFNum").val();
+        console.log(ufnum);
+        outputText(os, mode, memnum, getperiod, wait, windowsize, ufnum);
     })
 });
       

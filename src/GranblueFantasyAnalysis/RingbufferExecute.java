@@ -7,16 +7,20 @@ public class RingbufferExecute {
 	private int head = 0;
 	private int tail = 0;
 	private final int MaxSize = 24;
+	private int maxsize = MaxSize;
+	private int pastdata = 0;
+	private int currentdata = 0;
 	
 	RingbufferExecute(int maxnum){
 		if(maxnum <= MaxSize) {
 			this.num = new int[maxnum];
+			this.maxsize = maxnum;
 		}
 		else {
 			this.num = new int[MaxSize];
 		}
 		// Array Initialize
-		for(int i=0; i<MaxSize; i++) {
+		for(int i=0; i<maxnum; i++) {
 			this.num[i] = 0;
 		}
 		
@@ -25,6 +29,9 @@ public class RingbufferExecute {
 	public void push(int value) {
 		this.num[tail] = value;
 		this.tail = (this.tail + 1) % this.num.length;
+		this.maxCalc();
+		this.pastdata = this.currentdata;
+		this.currentdata = value;
 	}
 	
 	public int pull() {
@@ -35,8 +42,8 @@ public class RingbufferExecute {
 	
 	private void maxCalc() {
 		this.max = 0;
-		for(int i=0; i<MaxSize; i++) {
-			this.max = this.num[i]++;
+		for(int i=0; i<this.maxsize; i++) {
+			this.max += this.num[i];
 		}
 	}
 	
@@ -46,15 +53,16 @@ public class RingbufferExecute {
 	}
 	
 	public int maxCalcRet() {
-		maxCalc();
 		return this.max;
 	}
 	
 	public int aveCalcRet(int num) {
-		this.maxCalc();
 		this.aveCalc(num);
 		return this.ave;
 	}
 	
+	public int diffCalcRet() {
+		return this.currentdata-this.pastdata;
+	}
 	
 }

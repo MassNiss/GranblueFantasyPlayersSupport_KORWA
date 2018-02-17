@@ -51,7 +51,9 @@ public class GuraburuConfig extends LogMessage{
 		waittimeTitle,
 		waittime,
 		windowsizeTitle,
-		windowsize
+		windowsize,
+		tournamentNumTitle,
+		tournamentNum
 	}
 	
 	
@@ -64,6 +66,7 @@ public class GuraburuConfig extends LogMessage{
 	public String OS_info = "";
 	public String ActiveMode = "";
 	final int NumforPage = 10;
+	public String ufnum = "";
 	final String[] OutputFilePath = new String[] {
 			"./ExtData/MembersInfo/Members1.txt",
 			"./ExtData/MembersInfo/Members2.txt",
@@ -96,7 +99,9 @@ public class GuraburuConfig extends LogMessage{
 			"./ExtData/MembersInfo/Members29.txt",
 			"./ExtData/MembersInfo/Members30.txt"
 	};
-	final String BattleInfoPath = "/ExtData/AncientBattleFieldInfo/BattleInfo.txt";
+	final String BattleInfoPath = "./ExtData/AncientBattleFieldInfo/BattleInfo.txt";
+	final String GuildContributionInfoPath = "./ExtData/AncientBattleFieldInfo/GuildContributionInfo.txt";
+	final String BookMakerInfoPath = "./ExtData/BookMakerInfo/BookMakerInfo.txt";
 	
 	public List<String> GuildMembers = new ArrayList<>();
 	
@@ -134,6 +139,8 @@ public class GuraburuConfig extends LogMessage{
 		Tl_TimeSetting();
 		// Active mode
 		ActiveModeSetup(param);
+		// Tournament Number set
+		TournamentNumSetup(param);
 	}
 	
 	private void Tl_TimeSetting() {
@@ -208,6 +215,11 @@ public class GuraburuConfig extends LogMessage{
 	public void ActiveModeSetup(ConfigParameter param) {
 		String[] OthersAll = this.ConfigParamSet(param.ConfigPath);
 		this.ActiveMode = OthersAll[AllConfigparam.mode.ordinal()];
+	}
+	
+	public void TournamentNumSetup(ConfigParameter param) {
+		String[] OthersAll = this.ConfigParamSet(param.ConfigPath);
+		this.ufnum = OthersAll[AllConfigparam.tournamentNum.ordinal()];
 	}
 	
 }

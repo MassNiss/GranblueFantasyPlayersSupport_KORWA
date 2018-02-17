@@ -72,6 +72,10 @@ public class Guraburu_Sample{
 			driver.quit();
 			System.exit(0);
 		}
+		else if(Conf.ActiveMode.equals("UAFBookMaker")) {
+			System.out.println("Mode: UAFBookMaker");
+			Korwa = UniteAndFightBookMaker.getInstance();
+		}
 		else {
 			System.out.println("Mode: Not Supported!");
 			driver.quit();
