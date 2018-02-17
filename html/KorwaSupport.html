@@ -41,7 +41,7 @@ body{
 
 .Reading{
  position: absolute;
- top: 70%;
+ top: 75%;
  left: 15%;
  width: 400px;
  height: 200px;
@@ -57,7 +57,7 @@ body{
 
 .checkBox{
     position: absolute;
-    top: 65%;
+    top: 70%;
     left: 15%;
     width: 450px;
     height: 200px;
@@ -102,6 +102,45 @@ label {
     border-radius: 12px;
 }
 
+.mybricontspd{
+    display: none;
+    position: absolute;
+    top: 65%;
+    left: 15%;
+    width: 200px;
+    height: 200px;
+    font-size: small;
+}
+
+.oppbricontspd{
+    display: none;
+    position: absolute;
+    top: 65%;
+    left: 45%;
+    width: 200px;
+    height: 200px;
+    font-size: small;
+}
+
+.mybriconttopspd{
+    display: none;
+    position: absolute;
+    top: 65%;
+    left: 30%;
+    width: 200px;
+    height: 200px;
+    font-size: small;
+}
+
+.oppbriconttopspd{
+    display: none;
+    position: absolute;
+    top: 65%;
+    left: 60%;
+    width: 200px;
+    height: 200px;
+    font-size: small;
+}
 
 
 </style>
@@ -167,6 +206,11 @@ label {
         <!-- Page content -->
     </main>
     
+    <div class = "mybricontspd"></div>
+    <div class = "oppbricontspd"></div>
+    <div class = "mybriconttopspd"></div>
+    <div class = "oppbriconttopspd"></div>
+    
     <div class="checkBox">
         <input type="radio" name="mode" id="MLTMode" value="MLTMode" checked="">
         <label for="MLTMode" class="MLTMode">MembersLoginTimeMode</label>
@@ -190,6 +234,9 @@ var test;
 var stringMax = 24;
 var macLine = "\n";
 var windowsLine = "\r\n";
+
+var mybritopspd = 0;
+var oppbritopspd = 0;
 
 var mode1 = "MLTMode";
 var mode2 = "UAFMode";
@@ -227,32 +274,48 @@ function readfile(file) {
 	reader.readAsText(file,"utf-8");
 }
 
+function topspdfunc(spd1, spd2){
+    if(mybritopspd < spd1){
+        mybritopspd = spd1;
+    }
+    if(oppbritopspd < spd2){
+        oppbritopspd = spd2;
+    }
+}
+
 function MLTSplitArray(){
-	if(stringMax > ((textline.length-1)/3)){
-		stringMax = ((textline.length-1)/3);
-	}
+    var offset=0;
+    if(stringMax < ((textline.length-1)/3)){
+        offset = ((textline.length-1)/3)-stringMax;
+    }
+    stringMax = ((textline.length-1)/3);
+    
 	for(var i=0; i<stringMax; i++){
-		LoginName[i] = textline[3*i];
-		LoginFreq[i] = textline[3*i+1];
-		LoginFreq[i] = LoginFreq[i].substring(7,9);
-		LoginTime[i] = textline[3*i+2];
+		LoginName[i] = textline[3*i+offset];
+		LoginFreq[i] = textline[3*i+1+offset];
+		LoginFreq[i] = LoginFreq[i+offset].substring(7,9);
+		LoginTime[i] = textline[3*i+2+offset];
 		var idx = LoginTime[i].search(":");
 		LoginTime[i] = LoginTime[i].substring(idx-2,idx+6);
 	}
 }
 
 function UAFSplitArray(){
-    if(stringMax > ((textline.length-1)/6)){
-        stringMax = ((textline.length-1)/6);
+    var offset=0;
+    if(stringMax < ((textline.length-1)/6)){
+        offset = ((textline.length-1)/6)-stringMax;
     }
+    stringMax = ((textline.length-1)/6);
+    
     for(var i=0; i<stringMax; i++){
-        MyBriCont[i] = textline[6*i+1];
-        OppBriCont[i] = textline[6*i+2];
-        MyBriContSpd[i] = textline[6*i+3];
-        OppBriContSpd[i] = textline[6*i+4];
-        LoginTime[i] = textline[6*i+5];
+        MyBriCont[i] = textline[6*i+1+offset];
+        OppBriCont[i] = textline[6*i+2+offset];
+        MyBriContSpd[i] = textline[6*i+3+offset];
+        OppBriContSpd[i] = textline[6*i+4+offset];
+        LoginTime[i] = textline[6*i+5+offset];
         var idx = LoginTime[i].search(":");
         LoginTime[i] = LoginTime[i].substring(idx-2,idx+6);
+        topspdfunc(parseInt(MyBriContSpd[i], 10), parseInt(OppBriContSpd[i], 10));
     }
 }
 
@@ -264,11 +327,21 @@ function Load(event) {
     modecheck();
 	
     if(mode == mode1){
+        $(".mybricontspd").css("display", "none");
+        $(".oppbricontspd").css("display", "none");
         MLTSplitArray();
         drawGraph1(LoginName[0], LoginFreq, LoginTime);
     }
     else if(mode == mode2){
-        UAFSplitArray()
+        UAFSplitArray();
+        $(".mybricontspd").css("display", "block");
+        $(".mybricontspd").html("Our Recent Speed: "+MyBriContSpd[stringMax-1]);
+        $(".mybriconttopspd").css("display", "block");
+        $(".mybriconttopspd").html("Our Top Speed: "+mybritopspd.toString(10));
+        $(".oppbricontspd").css("display", "block");
+        $(".oppbricontspd").html("Opp Recent Speed: "+OppBriContSpd[stringMax-1]);
+        $(".oppbriconttopspd").css("display", "block");
+        $(".oppbriconttopspd").html("Opp Top Speed: "+oppbritopspd.toString(10));
         drawGraph2(MyBriCont, OppBriCont, MyBriContSpd, OppBriContSpd, LoginTime);
     }
 	
@@ -321,7 +394,7 @@ function drawGraph2(MyBriCont, OppBriCont, MyBriContSpd, OppBriContSpd, LoginTim
             borderWidth: 1
             },
             {
-            label: "OpponentBrigadeContribution",
+            label: "Opponent'sBrigadeContribution",
             data: [OppBriCont[0], OppBriCont[1], OppBriCont[2], OppBriCont[3], OppBriCont[4], OppBriCont[5], OppBriCont[6], OppBriCont[7], OppBriCont[8], OppBriCont[9], OppBriCont[10], OppBriCont[11], OppBriCont[12], OppBriCont[13], OppBriCont[14], OppBriCont[15], OppBriCont[16], OppBriCont[17], OppBriCont[18], OppBriCont[19], OppBriCont[20], OppBriCont[21], OppBriCont[22], OppBriCont[23]],
             backgroundColor:  'rgba(255, 140, 120, 0.2)',
             borderWidth: 1
