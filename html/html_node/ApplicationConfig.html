@@ -2,6 +2,21 @@
 <html>
 <meta charset="UTF-8">
 <head><title>Brifade Infomation</title></head>
+
+<style>
+.backimg{
+    /*background: url(../KorwaImages/KorwaSDSum.png);*/
+    position: absolute;
+    width: 1920px;
+    height: 1280px;
+}
+
+.config{
+    height: 100%
+    background: rgba(255,255,255,0.1);
+}
+</style>
+
 <body>
 <h2>GuraburuPlayersSupport's simple configuration</h2>
 
@@ -9,7 +24,9 @@
 <script type="text/javascript" src="../scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="../scripts/jquery.popupwindow.js"></script>
 
+<div class="backimg">
 <form>
+<div class="config">
     <p>
     <label for="OS">OS:</label><br />
     <input type="radio" id="MAC" name="OS" value="MAC" />
@@ -95,7 +112,7 @@
 </p>
 
 <p>
-<label for="UFNum">UnitAndFight Number:</label><br />
+<label for="UFNum">UniteAndFight Number:</label><br />
 <select id="UFNum" name="UFNum">
     <option value="36">36</option>
     <option value="37">37</option>
@@ -128,8 +145,12 @@
 
 <button type="button" id="btn">Set!</button>
 <a id="download" href="#" download="Config.txt"><button type="button" id="btn2" disabled>download</button></a>
-    
+<a id="back" href="../KorwaSupport.html"><button type="button" id="btn3">back</button></a>
+</div>
 </form>
+
+</div>
+
 <script>
 window.onload = function(){
     $('[name="MODE"]').val(["ManualLogin"]);
