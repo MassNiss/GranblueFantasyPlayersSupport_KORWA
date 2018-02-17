@@ -307,7 +307,7 @@ function drawGraph1(LoginName, LoginFreq, LoginTime){
 });
 }
 
-function drawGraph2(MyBriCont, LoginTime){
+function drawGraph2(MyBriCont, OppBriCont, MyBriContSpd, OppBriContSpd, LoginTime){
     var ctx = document.getElementById("canv1").getContext("2d");
     var myChart = new Chart(ctx, {
     type: 'bar',
