@@ -52,15 +52,15 @@ public class AncientBattleFieldInfomationAccess {
 		return Array;
 	}
 	
-	public List<String> ContributionDegreeRead(String value1, String value2){
+	public List<String> ContributionDegreeRead(String value1, String value2, String value3){
 		List<String> Array = new ArrayList<>();
-		Collections.addAll(Array, this.mycont, this.mybricont, this.oppbricont, value1, value2);
+		Collections.addAll(Array, this.mycont, this.mybricont, this.oppbricont, value1, value2, value3);
 		return Array;
 	}
 	
-	public List<String> ContributionDegreeRead(String value1, String value2, String value3, String value4){
+	public List<String> ContributionDegreeRead(String value1, String value2, String value3, String value4, String value5){
 		List<String> Array = new ArrayList<>();
-		Collections.addAll(Array, this.mycont, this.mybricont, this.oppbricont, value1, value2, value3, value4);
+		Collections.addAll(Array, this.mycont, this.mybricont, this.oppbricont, value1, value2, value3, value4, value5);
 		return Array;
 	}
 	

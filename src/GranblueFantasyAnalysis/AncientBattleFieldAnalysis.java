@@ -18,6 +18,9 @@ public class AncientBattleFieldAnalysis {
 	private String oppAverageStr = "";
 	private int aveTerm = 3;
 	
+	private String mybridiff = "";
+	private String oppbridiff = "";
+	
 	private RingbufferExecute MyRingBuf;
 	private RingbufferExecute OppRingBuf;
 	FileReadWrite FRW = new FileReadWrite();
@@ -47,11 +50,15 @@ public class AncientBattleFieldAnalysis {
 		return cntup;
 	}
 	
-	private String DiffCalcMethod(boolean firstGet) {
+	private void DiffCalcMethod(boolean firstGet) {
 		if(firstGet == true) {
-			return "0";
+			this.mybridiff = "0";
+			this.oppbridiff = "0";
 		}
-		return String.valueOf(this.MyRingBuf.diffCalcRet());
+		else {
+			this.mybridiff = String.valueOf(this.MyRingBuf.diff);
+			this.oppbridiff = String.valueOf(this.OppRingBuf.diff);
+		}
 	}
 	
 	public void BattleInfoCollect(String value) {
@@ -66,17 +73,12 @@ public class AncientBattleFieldAnalysis {
 		this.oppAverageStr = String.valueOf(this.oppaverage);
 	}
 	
-	public void PageAncientBattleFieldInfoExport(WebDriver driver, String NowTime) {
-		GuraburuConfig Conf = GuraburuConfig.getInstance();
-		this.WR.WriteLine(Conf.BattleInfoPath, this.ABFIA.ContributionDegreeRead(this.myAverageStr, NowTime));
-	}
-	
 	public void PageAncientBattleFieldInfoExport(WebDriver driver, String NowTime, String mode, boolean firstget) {
 		GuraburuConfig Conf = GuraburuConfig.getInstance();
+		DiffCalcMethod(firstget);
 		if(mode.equals("current")) {
 			this.WR.WriteLine(Conf.GuildContributionInfoPath, 
-					this.ABFIA.ContributionDegreeRead(this.DiffCalcMethod(firstget), 
-							this.myAverageStr, this.oppAverageStr, NowTime));	
+					this.ABFIA.ContributionDegreeRead(this.mybridiff, this.oppbridiff, NowTime));	
 		}
 		
 	}

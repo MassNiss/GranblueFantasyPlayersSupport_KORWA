@@ -3,6 +3,7 @@ package GranblueFantasyAnalysis;
 public class RingbufferExecute {
 	private int[] num;
 	private int max;
+	
 	private int ave;
 	private int head = 0;
 	private int tail = 0;
@@ -10,6 +11,8 @@ public class RingbufferExecute {
 	private int maxsize = MaxSize;
 	private int pastdata = 0;
 	private int currentdata = 0;
+	
+	public int diff;
 	
 	RingbufferExecute(int maxnum){
 		if(maxnum <= MaxSize) {
@@ -32,6 +35,7 @@ public class RingbufferExecute {
 		this.maxCalc();
 		this.pastdata = this.currentdata;
 		this.currentdata = value;
+		this.diff = this.currentdata - this.pastdata;
 	}
 	
 	public int pull() {
@@ -59,10 +63,6 @@ public class RingbufferExecute {
 	public int aveCalcRet(int num) {
 		this.aveCalc(num);
 		return this.ave;
-	}
-	
-	public int diffCalcRet() {
-		return this.currentdata-this.pastdata;
 	}
 	
 }
