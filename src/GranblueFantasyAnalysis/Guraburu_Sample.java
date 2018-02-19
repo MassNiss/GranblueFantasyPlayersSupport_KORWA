@@ -63,8 +63,8 @@ public class Guraburu_Sample{
 			Korwa = MembersLoginTimeSearchMethod.getInstance();
 				
 		}
-		else if(Conf.ActiveMode.equals("AncientBattleFieldResearch")) {
-			System.out.println("Mode: AncientBattleFieldResearch");
+		else if(Conf.ActiveMode.equals("UniteAndFight")) {
+			System.out.println("Mode: UniteAndFight");
 			Korwa = AncientBattlefieldResearch.getInstance();
 		}		
 		else if(Conf.ActiveMode.equals("ManualLogin")) {
